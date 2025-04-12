@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="bg" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Ново съобщение в OurHome.bg</title>
+    <style>
+        /* Глобални стилове */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* Контейнерът на email-а */
+        .email-container {
+            max-width: 600px;
+            width: 100%;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin: auto;
+        }
+
+        /* Бутон */
+        .button {
+            display: inline-block;
+            background-color: #DC3545;
+            color: #ffffff !important;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            width: 100%;
+            max-width: 250px;
+        }
+
+        /* Рамка около съобщението */
+        .message-box {
+            display: flex;
+            flex-direction: column;
+            background-color: #f9f9f9;
+            border-left: 4px solid #DC3545;
+            margin: 10px 0;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+        /* Responsive стилове */
+        @media screen and (max-width: 480px) {
+            .email-container {
+                padding: 15px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            p {
+                font-size: 14px;
+            }
+
+            .button {
+                font-size: 14px;
+                padding: 10px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<table class="email-container" role="presentation">
+    <tr>
+        <td align="center">
+            <h2 style="color: #2c3e50;">Нова заявка за актуализация на данни в домова книга!</h2>
+            <hr style="border: 1px solid #ddd;">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h3 style="padding: 1px 5px; color: #bb2d3b" th:if="${propertyNo} != null" th:text="'Самостоятелен обект №: ' + ${propertyNo}"></h3>
+
+            <hr style="border: 1px solid #ddd">
+
+            <p style="color: #bb2d3b"><b>ИНФОРМАЦИЯ ЗА СОБСТВЕНИК:</b></p>
+            <p style="padding: 1px 5px" th:if="${ownerName} != null" th:text="'Име на собственик: ' + ${ownerName}"></p>
+            <p style="padding: 1px 5px" th:if="${ownerPhone} != null" th:text="'Телефон за контакт: ' + ${ownerPhone}"></p>
+            <p style="padding: 1px 5px" th:if="${ownerEmail} != null" th:text="'Email за контакт: ' + ${ownerEmail}"></p>
+
+            <hr style="border: 1px solid #ddd;">
+
+            <p style="color: #bb2d3b"><b>ИНФОРМАЦИЯ ЗА ОБИТАТЕЛИ/ПОЛЗВАТЕЛИ (ВЪЗРАСТНИ):</b></p>
+
+            <div th:if="${adult1Name} != null or ${adult1Phone} != null or ${adult1Email} != null">
+                <p><b>Възрастен 1:</b></p>
+                <p style="padding: 1px 5px" th:if="${adult1Name} != null" th:text="'Три имена: ' + ${adult1Name}"></p>
+                <p style="padding: 1px 5px" th:if="${adult1Phone} != null" th:text="'Телефон за контакт: ' + ${adult1Phone}"></p>
+                <p style="padding: 1px 5px" th:if="${adult1Email} != null" th:text="'Email за контакт: ' + ${adult1Email}"></p>
+                <br>
+            </div>
+
+            <div th:if="${adult2Name} != null or ${adult2Phone} != null">
+                <p><b>Възрастен 2:</b></p>
+                <p style="padding: 1px 5px" th:if="${adult2Name} != null" th:text="'Три имена: ' + ${adult2Name}"></p>
+                <p style="padding: 1px 5px" th:if="${adult2Phone} != null" th:text="'Телефон за контакт: ' + ${adult2Phone}"></p>
+                <br>
+            </div>
+
+            <div th:if="${adult3Name} != null or ${adult3Phone} != null">
+                <p><b>Възрастен 3:</b></p>
+                <p style="padding: 1px 5px" th:if="${adult3Name} != null" th:text="'Три имена: ' + ${adult3Name}"></p>
+                <p style="padding: 1px 5px" th:if="${adult3Phone} != null" th:text="'Телефон за контакт: ' + ${adult3Phone}"></p>
+                <br>
+            </div>
+
+            <div th:if="${adult4Name} != null or ${adult4Phone} != null">
+                <p><b>Възрастен 4:</b></p>
+                <p style="padding: 1px 5px" th:if="${adult4Name} != null" th:text="'Три имена: ' + ${adult4Name}"></p>
+                <p style="padding: 1px 5px" th:if="${adult4Phone} != null" th:text="'Телефон за контакт: ' + ${adult4Phone}"></p>
+                <br>
+            </div>
+
+            <div th:if="${adult5Name} != null or ${adult5Phone} != null">
+                <p><b>Възрастен 5:</b></p>
+                <p style="padding: 1px 5px" th:if="${adult5Name} != null" th:text="'Три имена: ' + ${adult5Name}"></p>
+                <p style="padding: 1px 5px" th:if="${adult5Phone} != null" th:text="'Телефон за контакт: ' + ${adult5Phone}"></p>
+                <br>
+            </div>
+
+            <hr style="border: 1px solid #ddd">
+
+            <p style="color: #bb2d3b"><b>ИНФОРМАЦИЯ ЗА ОБИТАТЕЛИ/ПОЛЗВАТЕЛИ (ДЕЦА):</b></p>
+
+            <div th:if="${child1Name} != null or ${child1Age} != null">
+                <p><b>Дете 1:</b></p>
+                <p style="padding: 1px 5px" th:if="${child1Name} != null" th:text="'Три имена: ' + ${child1Name}"></p>
+                <p style="padding: 1px 5px" th:if="${child1Age} != null" th:text="'Възраст: ' + ${child1Age}"></p>
+                <br>
+            </div>
+
+            <div th:if="${child2Name} != null or ${child2Age} != null">
+                <p><b>Дете 2:</b></p>
+                <p style="padding: 1px 5px" th:if="${child2Name} != null" th:text="'Три имена: ' + ${child2Name}"></p>
+                <p style="padding: 1px 5px" th:if="${child2Age} != null" th:text="'Възраст: ' + ${child2Age}"></p>
+                <br>
+            </div>
+
+            <div th:if="${child3Name} != null or ${child3Age} != null">
+                <p><b>Дете 3:</b></p>
+                <p style="padding: 1px 5px" th:if="${child3Name} != null" th:text="'Три имена: ' + ${child3Name}"></p>
+                <p style="padding: 1px 5px" th:if="${child3Age} != null" th:text="'Възраст: ' + ${child3Age}"></p>
+                <br>
+            </div>
+
+            <div th:if="${child4Name} != null or ${child4Age} != null">
+                <p><b>Дете 4:</b></p>
+                <p style="padding: 1px 5px" th:if="${child4Name} != null" th:text="'Три имена: ' + ${child4Name}"></p>
+                <p style="padding: 1px 5px" th:if="${child4Age} != null" th:text="'Възраст: ' + ${child4Age}"></p>
+                <br>
+            </div>
+
+            <div th:if="${child5Name} != null or ${child5Age} != null">
+                <p><b>Дете 5:</b></p>
+                <p style="padding: 1px 5px" th:if="${child5Name} != null" th:text="'Три имена: ' + ${child5Name}"></p>
+                <p style="padding: 1px 5px" th:if="${child5Age} != null" th:text="'Възраст: ' + ${child5Age}"></p>
+                <br>
+            </div>
+
+            <hr style="border: 1px solid #ddd">
+
+            <p style="color: #bb2d3b"><b>ИНФОРМАЦИЯ ДОМАШНИ ЛЮБИМЦИ:</b></p>
+            <p style="padding: 1px 5px" th:if="${numberOfPets} != null" th:text="'Брой домашни любимци: ' + ${numberOfPets}"></p>
+
+            <hr style="border: 1px solid #ddd; margin-bottom: 60px">
+
+            <p><strong>📌 Важно:</strong><br>
+                Този имейл е генериран автоматично. <strong>Моля, не отговаряйте на него!</strong>
+            </p>
+            <p style="text-align: center; color: #888; font-size: 12px;">Niki Residence email auto service</p>
+            <p style="text-align: center; color: #888; font-size: 12px;">by Milen Zapryanov</p>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

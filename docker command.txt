@@ -1,0 +1,18 @@
+//Версия за LINUX
+docker buildx build \
+  --platform linux/amd64 \
+  --build-arg BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ") \
+  --build-arg BUILD_VERSION=1.0 \
+  -t milenzapryanov/nikiresidence:latest \
+  --push .
+
+
+
+//версия за Apple Silicon & Linux
+docker buildx build \
+  --platform linux/amd64,linux/arm64 \
+  --build-arg BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ") \
+  --build-arg BUILD_VERSION=2.$(date -u +"%y.%m%d") \
+  -t milenzapryanov/ourhome:2.$(date -u +"%y.%m%d") \
+  -t milenzapryanov/ourhome:latest \
+  --push .

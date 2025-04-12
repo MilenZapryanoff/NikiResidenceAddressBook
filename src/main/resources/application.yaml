@@ -1,0 +1,33 @@
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${mail_username}
+    password: ${mail_password}
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: 'true'
+  thymeleaf: # Thymeleaf
+    cache: false
+    mode: HTML
+    encoding: UTF-8
+    prefix: file:src/main/resources/templates/
+  web:
+    resources:
+      static-locations[0]: "file:src/main/resources/static/"
+      static-locations[1]: "classpath:/static/"
+  servlet:
+    multipart:
+      max-request-size: 50MB
+      max-file-size: 50MB
+server:
+  port: 8080
+
