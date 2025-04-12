@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang='en'
+      xmlns:th='http://www.thymeleaf.org'>
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
+
+    <title>Niki Residence - Заявка за обновяване на данни</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Additional CSS Files -->
+    <link href="/css/fontawesome.css" rel="stylesheet">
+    <link href="/css/our-home.css" rel="stylesheet">
+    <link href="/css/owl.css" rel="stylesheet">
+    <link href="/css/animate.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link href="/favicon/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png"/>
+    <link href="/favicon/favicon.svg" rel="icon" type="image/svg+xml"/>
+    <link href="/favicon.ico" rel="shortcut icon"/>
+    <link href="/favicon/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+    <meta content="OurHome" name="apple-mobile-web-app-title"/>
+    <link href="/favicon/site.webmanifest" rel="manifest"/>
+</head>
+<body>
+
+
+<!-- ***** Preloader Start ***** -->
+<div class="js-preloader" id="js-preloader">
+    <div class="preloader-inner">
+        <span class="dot"></span>
+        <div class="dots">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</div>
+
+<div class="message-content">
+    <form id="input-form"
+          th:action="@{/sendEmail}"
+          th:method="POST"
+          th:object="${inputDataBindingModel}">
+        <div class="container">
+            <div class="text-center">
+                <h1>Niki Residence</h1>
+                <p><b>ж.к. "Света Троица" 145В, вх.А</b></p>
+                <br>
+                <h6>Заявка за обновяване на информация в домовата книга.</h6>
+            </div>
+            <div class="message">
+                <div class="input-content text-center user-container" style="padding: 30px 0">
+                    <div class="">
+                        <div class="col-lg-10 center-form rounded" style="margin-bottom: 60px">
+                            <div class="row">
+                                <div class="col-lg-5" style="margin: 0 auto">
+                                    <fieldset>
+                                        <br>
+                                        <label for="number"><h6><i class="fa-solid fa-building"></i> Самостоятелен обект
+                                            №
+                                        </h6></label>
+                                        <input id="number" placeholder="Въведете номер на апартамент..."
+                                               required style="background-color: #ffcdd0; max-width: 70%"
+                                               th:field="*{propertyNumber}"
+                                               type="text">
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <h5 class="text-bg-danger" style="margin-top: 30px;">Данни за собственик</h5>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <fieldset>
+                                        <br>
+                                        <label for="ownerFirstName"><i class="fa-solid fa-user"></i> <b>Три
+                                            имена:</b></label>
+                                        <input id="ownerFirstName" placeholder="Въведете три имена..." required
+                                               th:field="*{ownerName}"
+                                               type="text">
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-6">
+                                    <fieldset>
+                                        <br>
+                                        <label for="ownerPhone"><i class="fa-solid fa-phone"></i> <b>Тел.
+                                            номер:</b></label>
+                                        <input id="ownerPhone" placeholder="Въведете тел. за контакт..." required
+                                               th:field="*{ownerPhone}"
+                                               type="tel">
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-6">
+                                    <fieldset>
+                                        <br>
+                                        <label for="ownerEmail"><i class="fa-solid fa-envelope"></i>
+                                            <b>Email:</b> (незадължително)</label>
+                                        <input id="ownerEmail" placeholder="Въведете email за контакт..."
+                                               th:field="*{ownerEmail}"
+                                               type="email">
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-6" style="display: flex">
+                                    <fieldset style="display:flex;align-content: center; margin: 0 auto">
+                                        <input class="inp-cbx" id="rememberMe" name="rememberMe" style="display: none"
+                                               type="checkbox"/>
+                                        <label class="cbx" for="rememberMe">
+                        <span>
+                    <svg height="10px" viewbox="0 0 12 10" width="12px"><polyline
+                            points="1.5 6 4.5 9 10.5 1"></polyline></svg>
+                        </span>
+                                            <span>Собственика обитава имота</span>
+                                        </label>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-10 center-form rounded">
+                        <h5 class="text-bg-danger" style="margin-bottom: 50px;">
+                            Данни за обитатели/ползватели на имота
+                        </h5>
+
+                        <div class="col-lg-12" style="margin: 0 auto">
+                            <h5 class="text-danger-emphasis" style="margin-top: 10px">
+                                Възрастни<small id="resident-count"> - бр. 0</small>
+                            </h5>
+                        </div>
+
+
+                        <br>
+                        <small class="text-center" style="color: #646464">Секцията касае информация отмносно обитаващите
+                            имота <b>ВЪЗРАСТНИ</b>. Оставете празно в случай, че имота е необитаем към този
+                            момент!</small>
+                        <div id="residents-container">
+                            <!-- Първи обитател -->
+                            <div class="resident row" style="display: none; position: relative;">
+                                <div style="width: 18px">
+                                    <a class="remove-btn btn btn-sm btn-danger"
+                                       style="position: absolute; right: 45px; top: 10px;"
+                                       type="button">✕</a>
+                                </div>
+                                <b><i class="fa-solid fa-user text-danger"><sup>1</sup></i></b>
+                                <div class="col-lg-6">
+                                    <fieldset><br>
+                                        <label for="adult1FirstName"><b>Три имена:</b></label>
+                                        <input id="adult1FirstName" placeholder="Въведете три имена..."
+                                               th:field="*{adult1Name}" type="text">
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-6">
+                                    <fieldset><br>
+                                        <label for="adult1Phone"><i class="fa-solid fa-phone"></i> <b>Тел.
+                                            номер:</b></label>
+                                        <input id="adult1Phone" placeholder="Въведете тел. за контакт..."
+                                               th:field="*{adult1Phone}" type="tel">
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-6">
+                                    <fieldset><br>
+                                        <label for="adult1Email"><i class="fa-solid fa-envelope"></i>
+                                            <b>Email:</b> (незадължително)</label>
+                                        <input id="adult1Email" placeholder="Въведете email за контакт..."
+                                               th:field="*{adult1Email}" type="email">
+                                    </fieldset>
+                                </div>
+                            </div>
+
+                            <!-- Втори обитател -->
+                            <div class="resident row" style="display: none; position: relative;">
+                                <div style="width: 18px">
+                                    <a class="remove-btn btn btn-sm btn-danger"
+                                       style="position: absolute; right: 45px; top: 10px;"
+                                       type="button">✕</a>
+                                </div>
+                                <b><i class="fa-solid fa-user"></i><i class="fa-solid fa-user text-danger"><sup>2</sup></i></b>
+                                <div class="col-lg-6">
+                                    <fieldset><br>
+                                        <label><b>Име:</b></label>
+                                        <input placeholder="Въведете три имена..." th:field="*{adult2Name}" type="text">
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-6">
+                                    <fieldset><br>
+                                        <label><i class="fa-solid fa-phone"></i> <b>Тел. номер:</b>
+                                            (незадължително)</label>
+                                        <input placeholder="Въведете тел. за контакт..." th:field="*{adult2Phone}"
+                                               type="tel">
+                                    </fieldset>
+                                </div>
+                            </div>
+
+                            <!-- Трети обитател -->
+                            <div class="resident row" style="display: none; position: relative;">
+                                <div style="width: 18px">
+                                    <a class="remove-btn btn btn-sm btn-danger"
+                                       style="position: absolute; right: 45px; top: 10px;"
+                                       type="button">✕</a>
+                                </div>
+                                <b><i class="fa-solid fa-user"></i><i class="fa-solid fa-user"></i><i
+                                        class="fa-solid fa-user text-danger"><sup>3</sup></i></b>
+                                <div class="col-lg-6">
+                                    <fieldset><br>
+                                        <label><b>Име:</b></label>
+                                        <input placeholder="Въведете три имена..." th:field="*{adult3Name}" type="text">
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-6">
+                                    <fieldset><br>
+                                        <label><i class="fa-solid fa-phone"></i> <b>Тел. номер:</b>
+                                            (незадължително)</label>
+                                        <input placeholder="Въведете тел. за контакт..." th:field="*{adult3Phone}"
+                                               type="tel">
+                                    </fieldset>
+                                </div>
+                            </div>
+
+                            <!-- Четвърти обитател -->
+                            <div class="resident row" style="display: none; position: relative;">
+                                <div style="width: 18px">
+                                    <a class="remove-btn btn btn-sm btn-danger"
+                                       style="position: absolute; right: 45px; top: 10px;"
+                                       type="button">✕</a>
+                                </div>
+                                <b><i class="fa-solid fa-user"></i><i class="fa-solid fa-user"></i><i
+                                        class="fa-solid fa-user"></i><i
+                                        class="fa-solid fa-user text-danger"><sup>4</sup></i></b>
+                                <div class="col-lg-6">
+                                    <fieldset><br>
+                                        <label><b>Име:</b></label>
+                                        <input placeholder="Въведете три имена..." th:field="*{adult4Name}" type="text">
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-6">
+                                    <fieldset><br>
+                                        <label><i class="fa-solid fa-phone"></i> <b>Тел. номер:</b>
+                                            (незадължително)</label>
+                                        <input placeholder="Въведете тел. за контакт..." th:field="*{adult4Phone}"
+                                               type="tel">
+                                    </fieldset>
+                                </div>
+                            </div>
+
+                            <!-- Пети обитател -->
+                            <div class="resident row" style="display: none; position: relative;">
+                                <div style="width: 18px">
+                                    <a class="remove-btn btn btn-sm btn-danger"
+                                       style="position: absolute; right: 45px; top: 10px;"
+                                       type="button">✕</a>
+                                </div>
+                                <b><i class="fa-solid fa-user"></i><i class="fa-solid fa-user"></i><i
+                                        class="fa-solid fa-user"></i><i class="fa-solid fa-user"></i><i
+                                        class="fa-solid fa-user text-danger"><sup>5</sup></i></b>
+                                <div class="col-lg-6">
+                                    <fieldset><br>
+                                        <label><b>Име:</b></label>
+                                        <input placeholder="Въведете три имена..." th:field="*{adult5Name}" type="text">
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-6">
+                                    <fieldset><br>
+                                        <label><i class="fa-solid fa-phone"></i> <b>Тел. номер:</b>
+                                            (незадължително)</label>
+                                        <input placeholder="Въведете тел. за контакт..." th:field="*{adult5Phone}"
+                                               type="tel">
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+                        <button id="addResident" style="margin: 30px 0; width: 200px" type="button"><i
+                                class="fa-solid fa-user-plus"></i> Добави възрастен
+                        </button>
+
+                        <!-- Деца -->
+                        <div class="col-lg-12 center-form rounded">
+                            <div class="col-lg-12" style="margin: 0 auto">
+                                <h5 class="text-danger-emphasis" id="children-title"
+                                    style="margin-top: 30px">Данни за деца <small
+                                        id="child-count"> -
+                                    бр. 0</small></h5>
+                            </div>
+                            <br>
+                            <small class="text-center" style="color: #646464">Секцията касае информация относно
+                                обитаващите
+                                имота <b>ДЕЦА</b>. Оставете празно в случай, че не живеят деца в този имот! </small>
+                            <div id="children-container">
+
+                                <div class="child row" style="display: none; position: relative">
+                                    <div style="width: 18px">
+                                        <a class="remove-btn btn btn-sm btn-danger"
+                                           style="position: absolute; right: 45px; top: 10px;"
+                                           type="button">✕</a>
+                                    </div>
+                                    <b><i class="fa-solid fa-child text-danger"><sup>1</sup></i></b>
+                                    <div class="col-lg-6">
+                                        <fieldset><br>
+                                            <label><b>Три имена:</b></label>
+                                            <input placeholder="Въведете три имена..." th:field="*{child1Name}"
+                                                   type="text">
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <fieldset><br>
+                                            <label><b>Възраст:</b></label>
+                                            <input placeholder="Въведете възраст на детето..." th:field="*{child1Age}"
+                                                   type="text">
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <div class="child row" style="display: none; position: relative">
+                                    <div style="width: 18px">
+                                        <a class="remove-btn btn btn-sm btn-danger"
+                                           style="position: absolute; right: 45px; top: 10px;"
+                                           type="button">✕</a>
+                                    </div>
+                                    <b><i class="fa-solid fa-child"></i><i
+                                            class="fa-solid fa-child text-danger"><sup>2</sup></i></b>
+                                    <div class="col-lg-6">
+                                        <fieldset><br>
+                                            <label><b>Три имена:</b></label>
+                                            <input placeholder="Въведете три имена..." th:field="*{child2Name}"
+                                                   type="text">
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <fieldset><br>
+                                            <label><b>Възраст:</b></label>
+                                            <input placeholder="Въведете възраст на детето..." th:field="*{child2Age}"
+                                                   type="text">
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <div class="child row" style="display: none; position: relative">
+                                    <div style="width: 18px">
+                                        <a class="remove-btn btn btn-sm btn-danger"
+                                           style="position: absolute; right: 45px; top: 10px;"
+                                           type="button">✕</a>
+                                    </div>
+                                    <b><i class="fa-solid fa-child"></i><i class="fa-solid fa-child"></i><i
+                                            class="fa-solid fa-child text-danger"><sup>3</sup></i></b>
+                                    <div class="col-lg-6">
+                                        <fieldset><br>
+                                            <label><b>Три имена:</b></label>
+                                            <input placeholder="Въведете три имена..." th:field="*{child3Name}"
+                                                   type="text">
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <fieldset><br>
+                                            <label><b>Възраст:</b></label>
+                                            <input placeholder="Въведете възраст на детето..." th:field="*{child3Age}"
+                                                   type="text">
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <div class="child row" style="display: none; position: relative">
+                                    <div style="width: 18px">
+                                        <a class="remove-btn btn btn-sm btn-danger"
+                                           style="position: absolute; right: 45px; top: 10px;"
+                                           type="button">✕</a>
+                                    </div>
+                                    <b><i class="fa-solid fa-child"></i><i class="fa-solid fa-child"></i><i
+                                            class="fa-solid fa-child"></i><i
+                                            class="fa-solid fa-child text-danger"><sup>4</sup></i></b>
+                                    <div class="col-lg-6">
+                                        <fieldset><br>
+                                            <label><b>Три имена:</b></label>
+                                            <input placeholder="Въведете три имена..." th:field="*{child4Name}"
+                                                   type="text">
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <fieldset><br>
+                                            <label><b>Възраст:</b></label>
+                                            <input placeholder="Въведете възраст на детето..." th:field="*{child4Age}"
+                                                   type="text">
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <div class="child row" style="display: none; position: relative">
+                                    <div style="width: 18px">
+                                        <a class="remove-btn btn btn-sm btn-danger"
+                                           style="position: absolute; right: 45px; top: 10px;"
+                                           type="button">✕</a>
+                                    </div>
+                                    <b><i class="fa-solid fa-child"></i><i class="fa-solid fa-child"></i><i
+                                            class="fa-solid fa-child"></i><i class="fa-solid fa-child"></i><i
+                                            class="fa-solid fa-child text-danger"><sup>5</sup></i></b>
+                                    <div class="col-lg-6">
+                                        <fieldset><br>
+                                            <label><b>Три имена:</b></label>
+                                            <input placeholder="Въведете три имена..." th:field="*{child5Name}"
+                                                   type="text">
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <fieldset><br>
+                                            <label><b>Възраст:</b></label>
+                                            <input placeholder="Въведете възраст на детето..." th:field="*{child5Age}"
+                                                   type="text">
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <button id="addChild" style="margin: 30px; width: 200px" type="button"><i
+                                    class="fa-solid fa-child"></i>
+                                Добави дете
+                            </button>
+                        </div>
+                        <div class="col-lg-12 center-form rounded">
+                            <div class="col-lg-12" style="margin: 0 auto">
+                                <h5 class="text-danger-emphasis" style="margin-top: 30px">Данни за домашни
+                                    любимци</h5>
+                            </div>
+                            <br>
+                            <small class="text-center" style="color: #646464">Секцията касае информация относно
+                                обитаващите имота домашни любимци подлежащи на извеждане!</small>
+                            <br>
+                            <br>
+
+                            <div>
+                                <div class="col-lg-4" style="margin: 0 auto">
+                                    <fieldset><br>
+                                        <label><b>Брой домашни любимци:</b></label>
+                                        <input placeholder="Въведете брой домашни любимци..." required
+                                               th:field="*{numberOfPets}" type="text">
+                                    </fieldset>
+                                </div>
+                                <p class="text-center" style="color: #646464; font-size: 12px"><b>Въведете 0 в случай,
+                                    че не разполагате
+                                    с домашен любимец!</b></p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <button id="form-submit" style="margin: 20px 0; background-color: #DC3545; width: 200px"
+                            type="submit">Завърши!
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<!-- Scripts -->
+<!-- Bootstrap core JavaScript -->
+<script src="/jquery/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/isotope.min.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/script.js"></script>
+
+</body>
+</html>
