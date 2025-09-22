@@ -11,16 +11,12 @@ public class InputDataBindingModel {
     private String adult1Name;
     private String adult1Phone;
     private String adult1Email;
-
     private String adult2Name;
     private String adult2Phone;
-
     private String adult3Name;
     private String adult3Phone;
-
     private String adult4Name;
     private String adult4Phone;
-
     private String adult5Name;
     private String adult5Phone;
 
